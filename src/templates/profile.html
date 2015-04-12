@@ -88,7 +88,118 @@
                       
                   </aside>
               </div>
+<form name="activityform" id="activityform" method="get" action="">
+<table width="450px">
+</tr>
+<tr>
+ <td valign="top">
+  <label for="date">Date </label>
+ </td>
+ <td valign="top">
+  <input  type="text" name="date" maxlength="50" size="30">
+ </td>
+</tr>
 
+<tr>
+ <td valign="top">
+  <label for="Activity Type">Activity Type</label>
+ </td>
+ <td valign="top">
+  <select name="activity">
+  <option value="Running">Running</option>
+  <option value="Walking">Walking</option>
+  <option value="Biking">Biking</opton>
+ </select>
+ </td>
+</tr>
+<tr>
+ <td valign="top">
+  <label for="Time">Time (sec)</label>
+ </td>
+ <td valign="top">
+  <input  type="text" name="time" id="time" maxlength="80" size="30">
+ </td>
+
+</tr>
+<tr>
+ <td valign="top">
+  <label for="Distance">Distance (m)</label>
+ </td>
+ <td valign="top">
+  <input  type="text" name="distance" id="distance" maxlength="30" size="30">
+ </td>
+</tr>
+
+</tr>
+</table>
+</form>
+
+<table width="450px">
+<tr>
+ <td colspan="2" style="text-align:center">
+    <button onclick="submit()">Submit</button>
+ </td>
+</tr>
+<tr>
+ <td colspan="2" style="text-align:center">
+    <button onclick="fillrunkeeper()">Fill RunKeeper data</button>
+ </td>
+</tr>
+</table>
+
+
+<p id="result"></p>
+<br>
+<p id="points"></p>
+<br>
+<a href='https://runkeeper.com/apps/authorize?client_id=7fc1f406d6944da88f03721bfa1fbedd&redirect_uri=http%3A%2F%2Fthespacerace2015.appspot.com%2Fconnect&response_type=code&state='><img src='//static1.runkeeper.com/images/assets/connect-blue-white-200x38.png'/></a>
+
+    <script>
+
+function submit()
+{
+    var oform = document.getElementById ('activityform');
+    time = oform.elements["time"].value;
+    distance = oform.elements["distance"].value;
+    var xmlHttp = null;
+
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", "http://space-race.eu-gb.mybluemix.net/api/run?time="+time+"&distance="+distance);
+    xmlHttp.onreadystatechange=function() {
+        if (xmlHttp.readyState==4 && xmlHttp.status==200) {
+            //window.alert(xmlHttp.responseXML);
+            response=JSON.parse(xmlHttp.responseText);
+            document.getElementById("result").innerHTML = response.message;
+            document.getElementById("points").innerHTML = "You gained " + response.points + " points with this run. Congratulations.";
+        }
+    }
+    xmlHttp.send( null );
+    document.getElementById("result").innerHTML = "Result: ";
+}
+
+function fillrunkeeper()
+{
+    var xmlHttp = null;
+
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", "https://api.runkeeper.com/fitnessActivities");
+    xmlHttp.setRequestHeader("Authorization", "Bearer 912ee889f01b490ea20d8a4662f052e9");
+    xmlHttp.setRequestHeader("Accept", "application/vnd.com.runkeeper.FitnessActivityFeed+json");
+    xmlHttp.onreadystatechange=function() {
+        if (xmlHttp.readyState==4 && xmlHttp.status==200) {
+            //document.getElementById("result").innerHTML = "Result: " + xmlHttp.responseText;
+            obj = JSON.parse(xmlHttp.responseText);
+            size = obj.size;
+            var oform = document.getElementById ('activityform');
+            oform.elements["time"].value = obj.items[0].duration;
+            oform.elements["distance"].value = obj.items[0].total_distance;
+            oform.elements["date"].value = obj.items[0].start_time;
+            //window.alert(obj.items[0].duration);
+        }
+    }
+    xmlHttp.send( null );
+}
+  </script>
               <!-- page end-->
           </section>
       </section>
