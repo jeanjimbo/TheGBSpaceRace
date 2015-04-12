@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section id="container" class="">
+    <header class="header-frontend">
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="fa fa-bar"></span>
+                        <span class="fa fa-bar"></span>
+                        <span class="fa fa-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Space<span>Race</span></a>
+                </div>
+                <div class="navbar-collapse collapse ">
+                    <ul class="nav navbar-nav">
+					{% if user %}
+                        <li><a href="/profile">{{user.name}}</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li class="active"><a href="/targets">Targets</a></li>	
+						<li><a href="/logout" class="btn btn-danger purchase-btn" target="_blank">Logout</a></li>
+					{% else %}
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li class="active"><a href="/targets">Targets</a></li>						
+						<li><a href="/login" class="btn btn-danger purchase-btn" target="_blank">Sign Up / Log in</a></li>
+					{% endif %}                  
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--header end-->
+      
+      <!--sidebar end-->
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+              <!-- page start-->
+              <div class="row">
+                  <aside class="profile-nav col-lg-3">
+                      <section class="panel">
+                          <div class="user-heading round">
+                              <a href="#">
+                                  <img src="static/img/tim-profile.png" alt="">
+                              </a>
+                              <h1>Tim Peake Fan</h1>
+                              <p>{{user.email}}</p>
+                          </div>
+
+                          <ul class="nav nav-pills nav-stacked">
+                              <li class="active"><a href="profile.html"> <i class="fa fa-user"></i> Profile</a></li>
+                              <li><a href="/activity"> <i class="fa fa-calendar"></i> Recent Activity <span class="label label-danger pull-right r-activity">9</span></a></li>
+                              <li><a href="/settings"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                          </ul>
+
+                      </section>
+                  </aside>
+                  <aside class="profile-info col-lg-9">
+                      <section class="panel">
+                          <form>
+                              <textarea placeholder="What did you do today?" rows="2" class="form-control input-lg p-text-area"></textarea>
+                          </form>
+                          <footer class="panel-footer">
+                              <button class="btn btn-danger pull-right">Add Activity</button>
+        
+                          </footer>
+                      </section>
+                      <section class="panel">
+
+                          <div class="panel-body bio-graph-info">
+                              <h1>My Profile</h1>
+                              <div class="row">
+                                  <div class="bio-row">
+                                      <p><span>First Name </span>: Really Big</p>
+                                  </div>
+                                  <div class="bio-row">
+                                      <p><span>Last Name </span>: Tim Peake Fan</p>
+                                  </div>
+                                  <div class="bio-row">
+                                      <p><span>Country </span>: Great Britain</p>
+                                  </div>
+
+                              </div>
+                          </div>
+                      </section>
+                      
+                  </aside>
+              </div>
+
+              <!-- page end-->
+          </section>
+      </section>
+      <!--main content end-->
+
+
+  </section>
+  <div class="gray-box mbot50">
+        <div class="container">
+            <div class="row">
+                <div class="row">
+                    <div class="text-center feature-head">
+                        <h1> Achievements </h1>
+                        <p>Aenean nibh ante, lacinia non tincidunt nec, lobortis ut tellus. Sed in porta diam.</p>
+                    </div>
+                    <div class="services">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="icon-wrap ico-bg round">
+                                <i class="fa fa-desktop"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="title">Get fit!</h3>
+                                <p>Suspendisse dignissim in sem eget pulvinar. Mauris aliquam nulla at libero pretium, eu tincidunt nulla molestie pulvinar posuere.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="icon-wrap ico-bg round">
+                                <i class="fa fa-gift"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="title">Reach for the stars</h3>
+                                <p>Suspendisse dignissim in sem eget pulvinar. Mauris aliquam nulla at libero pretium, eu tincidunt nulla molestie pulvinar posuere.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="services">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="icon-wrap ico-bg round">
+                                <i class="fa fa-code"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="title">Your friends can join too!</h3>
+                                <p>Suspendisse dignissim in sem eget pulvinar. Mauris aliquam nulla at libero pretium, eu tincidunt nulla molestie pulvinar posuere.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="icon-wrap ico-bg round">
+                                <i class="fa fa-book"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="title">Join a gym</h3>
+                                <p>Suspendisse dignissim in sem eget pulvinar. Mauris aliquam nulla at libero pretium, eu tincidunt nulla molestie pulvinar posuere.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="services">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="icon-wrap ico-bg round">
+                                <i class=" fa fa-bullhorn"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="title">Do something</h3>
+                                <p>Suspendisse dignissim in sem eget pulvinar. Mauris aliquam nulla at libero pretium, eu tincidunt nulla molestie pulvinar posuere.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="icon-wrap ico-bg round">
+                                <i class=" fa fa-eye"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="title">Do something</h3>
+                                <p>Suspendisse dignissim in sem eget pulvinar. Mauris aliquam nulla at libero pretium, eu tincidunt nulla molestie pulvinar posuere.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="js/jquery.scrollTo.min.js"></script>
+    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="assets/jquery-knob/js/jquery.knob.js"></script>
+    <script src="js/respond.min.js" ></script>
+
+  <!--right slidebar-->
+  <script src="js/slidebars.min.js"></script>
+
+    <!--common script for all pages-->
+    <script src="js/common-scripts.js"></script>
+
+  <script>
+
+      //knob
+      $(".knob").knob();
+
+  </script>
+
+{% endblock %}

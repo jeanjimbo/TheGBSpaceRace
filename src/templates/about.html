@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+ <!--header start-->
+    <header class="header-frontend">
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="fa fa-bar"></span>
+                        <span class="fa fa-bar"></span>
+                        <span class="fa fa-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">The Great<span>British Space Race</span></a>
+                </div>
+                <div class="navbar-collapse collapse ">
+                    <ul class="nav navbar-nav">
+					{% if user %}
+                        <li><a href="/profile">{{user.name}}</a></li>
+                        <li class="active"><a href="/about">About</a></li>
+                        <li><a href="/targets">Targets</a></li>	
+						<li><a href="/logout" class="btn btn-danger purchase-btn">Logout</a></li>
+					{% else %}
+                        <li><a href="/">Home</a></li>
+                        <li class="active"><a href="/about">About</a></li>
+                        <li><a href="/targets">Targets</a></li>						
+						<li><a href="/login" class="btn btn-danger purchase-btn">Sign Up / Log in</a></li>
+					{% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--header end-->
+
+
+
+    <!--container start-->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <img src="static/img/logo2.png">
+            </div>
+            <div class="col-lg-7 about">
+                <h3>Space Race</h3>
+<p>
+ESA Astronaut Tim Peake will spend six months in space, orbiting the Earth on the International Space Station as part of ISS Expedition 46. For all the fun of being in microgravity, Tim will have to get to grips with a vigorous exercise regime, spending at least two hours a day exercising, to ensure that his bones and muscles don’t deteriorate.
+</p>
+<p>
+He’s inviting you to join him on his mission and exercise alongside him in the Great British Space Race. For each session of exercise you do, you will earn points or “rocket fuel” that will help you along your journey.  The more you exercise the more rocket fuel you’ll earn.
+</p>
+<p>
+The first challenge is to earn your astronaut wings! To do so, you must earn enough rocket fuel points to get you past the Karman line which is 100Km/64miles above Earth. This is the standard that NASA uses to award gold astronaut wings, can you make it? Next up is making it into low Earth orbit, where the space station is. This will take a bit of work, but don’t worry, mission control will help you along the way, with exciting new challenges to keep you motivated.
+</p>
+<p>
+Team Up and Explore
+As well as individual missions you can train alongside your friends and colleagues. Set up a group to follow their progress and pool your achievements to reach far into the galaxy.  You can also join your register with your gym, and pit yourselves against other participating gyms around the UK.
+</p>
+<p>
+So what are you waiting for? Sign up and let's get ready for launch!
+</p>
+            </div>
+        </div>
+        
+    </div>
+
+     
+
+
+     <!--footer start-->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-sm-3">
+                    <h1>contact info</h1>
+                    <address>
+                        <p>Address: Mars</p>
+                        <p>Email : <a href="javascript:;">info@spacerace.com</a></p>
+                    </address>
+                </div>
+                <div class="col-lg-5 col-sm-5">
+                    <h1>latest tweet</h1>
+                    <div class="tweet-box">
+                        <i class="fa fa-twitter"></i>
+                        <em>Please follow <a href="javascript:;">@spacerace</a> for all future updates of us! <a href="javascript:;">twitter.com/jeanjimbo</a></em>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-3 col-lg-offset-1">
+                    <h1>stay connected</h1>
+                    <ul class="social-link-footer list-unstyled">
+                        <li><a href="http://facebook.com/spacerace"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="http://plus.google.com/spacerace"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="http://twitter.com/spacerace"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="http://github.com/spacerace"><i class="fa fa-github"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--footer end-->
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/hover-dropdown.js"></script>
+    <script type="text/javascript" src="assets/bxslider/jquery.bxslider.js"></script>
+     <script defer src="js/jquery.flexslider.js"></script>
+
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/link-hover.js"></script>
+
+
+    <!--common script for all pages-->
+    <script src="js/common-scripts.js"></script>
+
+
+  <script>
+      $(window).load(function() {
+          $('[data-zlname = reverse-effect]').mateHover({
+              position: 'y-reverse',
+              overlayStyle: 'rolling',
+              overlayBg: '#fff',
+              overlayOpacity: 0.7,
+              overlayEasing: 'easeOutCirc',
+              rollingPosition: 'top',
+              popupEasing: 'easeOutBack',
+              popup2Easing: 'easeOutBack'
+          });
+      });
+
+      $(window).load(function() {
+          $('.flexslider').flexslider({
+              animation: "slide",
+              start: function(slider) {
+                  $('body').removeClass('loading');
+              }
+          });
+      });
+
+
+  </script>
+
+{% endblock %}
