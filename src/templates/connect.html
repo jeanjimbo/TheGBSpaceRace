@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+var $_GET = {},
+    args = location.search.substr(1).split(/&/);
+for (var i=0; i<args.length; ++i) {
+    var tmp = args[i].split(/=/);
+    if (tmp[0] != "") {
+        $_GET[decodeURIComponent(tmp[0])] = decodeURIComponent(tmp.slice(1).join("").replace("+", " "));
+    }
+}
+
+//window.alert($_GET['code']);
+
+var xmlHttp = null;
+
+xmlHttp = new XMLHttpRequest();
+xmlHttp.open( "POST", "https://runkeeper.com/apps/token");
+xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+xmlHttp.onreadystatechange=function() {
+   if (xmlHttp.readyState==4 && xmlHttp.status==200) {
+       window.location.replace('http://thespacerace2015.appspot.com/profile');
+       //window.alert(xmlHttp.responseText);
+   }
+}
+a=JSON.stringify({grant_type:"authorization_code", code:$_GET['code'], client_id: "7fc1f406d6944da88f03721bfa1fbedd", client_secret:"f5ebb23c229b47d7833751a0f58ef314", redirect_uri:"http://thespacerace2015.appspot.com/"})
+xmlHttp.send(a);
+
+
+
+//xmlHttp.setRequestHeader("grant_type", "authorization_code");
+//xmlHttp.setRequestHeader("code", $_GET['code']);
+//xmlHttp.setRequestHeader("client_id", "7fc1f406d6944da88f03721bfa1fbedd");
+//xmlHttp.setRequestHeader("client_secret", "f5ebb23c229b47d7833751a0f58ef314");
+//xmlHttp.setRequestHeader("redirect_uri", "http://localhost/test/connect.htm");
+//xmlHttp.send( null );
+
+
+</script>
+</body>
+</html>
