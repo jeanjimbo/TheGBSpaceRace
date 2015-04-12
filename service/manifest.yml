@@ -1,0 +1,8 @@
+---
+applications:
+- name:  spacerace.service
+  disk: 512M
+  path: service
+  command: node app.js
+  memory: 128M
+  host: space-race
