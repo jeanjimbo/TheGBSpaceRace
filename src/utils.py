@@ -13,7 +13,7 @@ SECRET = 'fart'
 
 
 def make_cookie_hash(val):
-    return '%s|%s' % (val, hmac.new(SECRET, val).hexdigest())
+    return f'{val}|{hmac.new(SECRET, val).hexdigest()}'
 
 
 def check_cookie_hash(secure_val):
@@ -27,14 +27,14 @@ def check_cookie_hash(secure_val):
 #
 
 def make_salt(length=5):
-    return ''.join(random.choice(letters) for x in xrange(length))
+    return ''.join(random.choice(letters) for _ in xrange(length))
 
 
 def make_pw_hash(name, pw, salt=None):
     if not salt:
         salt = make_salt()
     h = hashlib.sha256(name + pw + salt).hexdigest()
-    return '%s,%s' % (salt, h)
+    return f'{salt},{h}'
 
 
 def check_pw_hash(name, password, h):

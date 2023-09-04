@@ -38,8 +38,7 @@ class User(db.Model):
 
     @classmethod
     def by_name(cls, name):
-        u = cls.all().filter('name =', name).ancestor(users_key()).get()
-        return u
+        return cls.all().filter('name =', name).ancestor(users_key()).get()
 
     @classmethod
     def register(cls, name, pw, email=None):
@@ -72,11 +71,12 @@ class Post(db.Model):
 
     def as_dict(self):
         time_fmt = '%c'
-        d = {'subject': self.subject,
-             'content': self.content,
-             'created': self.created.strftime(time_fmt),
-             'last_modified': self.last_modified.strftime(time_fmt)}
-        return d
+        return {
+            'subject': self.subject,
+            'content': self.content,
+            'created': self.created.strftime(time_fmt),
+            'last_modified': self.last_modified.strftime(time_fmt),
+        }
 
 
 #
@@ -106,9 +106,7 @@ class BlogHandler(webapp2.RequestHandler):
 
     def set_secure_cookie(self, name, val):
         cookie_val = make_cookie_hash(val)
-        self.response.headers.add_header(
-            'Set-Cookie',
-            '%s=%s; Path=/' % (name, cookie_val))
+        self.response.headers.add_header('Set-Cookie', f'{name}={cookie_val}; Path=/')
 
     def read_secure_cookie(self, name):
         cookie_val = self.request.cookies.get(name)
@@ -148,7 +146,7 @@ class BlogFront(BlogHandler):
 
 
 def cachepost(post_id, update=False):
-    key = 'permalink' + str(post_id)
+    key = f'permalink{str(post_id)}'
     post_cachetime = memcache.get(key)
     if post_cachetime is None or update:
         dbkey = db.Key.from_path('Post', int(post_id), parent=blog_key())
@@ -221,7 +219,7 @@ class Targets(BlogHandler):
         if subject and content:
             p = Post(parent=blog_key(), subject=subject, content=content)
             p.put()
-            self.redirect('/%s' % str(p.key().id()))
+            self.redirect(f'/{str(p.key().id())}')
             cachefront(True)
             cachepost(p.key().id(), True)
         else:
@@ -260,17 +258,15 @@ class Signup(BlogHandler):
 
         if have_error:
             self.render('signup-form.html', **params)
+        elif u := User.by_name(self.username):
+            params['error_username'] = 'That user already exists.'
+            self.render('signup-form.html', **params)
         else:
-            u = User.by_name(self.username)
-            if u:
-                params['error_username'] = 'That user already exists.'
-                self.render('signup-form.html', **params)
-            else:
-                u = User.register(self.username, self.password, self.email)
-                u.put()
+            u = User.register(self.username, self.password, self.email)
+            u.put()
 
-                self.login(u)
-                self.redirect('/')
+            self.login(u)
+            self.redirect('/')
 
 
 class Login(BlogHandler):
@@ -281,8 +277,7 @@ class Login(BlogHandler):
         username = self.request.get('username')
         password = self.request.get('password')
 
-        u = User.login(username, password)
-        if u:
+        if u := User.login(username, password):
             self.login(u)
             self.redirect('/profile')
         else:
